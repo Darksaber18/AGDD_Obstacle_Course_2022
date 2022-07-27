@@ -11,10 +11,12 @@ public class Mover : MonoBehaviour
     //[SerializeField] float zTranslate = 0.01f;
     [SerializeField] float moveSpeed = 1f;
     //float SpeedMove = Time.deltaTime * 20;
+    Rigidbody rb = null;
 
     // Start is called before the first frame update
     void Start()
     {
+        rb = GetComponent<Rigidbody>();
         Debug.Log("Welcome to game!");
         Debug.Log("Let's play");
         Debug.Log("Move with WASD.");
@@ -22,7 +24,7 @@ public class Mover : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         MovePlayer();
     }
@@ -30,11 +32,14 @@ public class Mover : MonoBehaviour
     void MovePlayer()
     { 
         
-        float xTranslate = Input.GetAxis("Horizontal") * Time.deltaTime * moveSpeed;
+        //float xTranslate = Input.GetAxis("Horizontal") * Time.deltaTime * moveSpeed;
+        float xTranslate = Input.GetAxis("Horizontal") * moveSpeed;
         //float xTranslate = Input.GetAxis("Horizontal") * moveSpeed;
         //float zTranslate = Input.GetAxis("Vertical") * moveSpeed;
-        float zTranslate = Input.GetAxis("Vertical") * Time.deltaTime * moveSpeed;
+        float zTranslate = Input.GetAxis("Vertical") * moveSpeed;
 
-        this.transform.Translate(xTranslate, 0, zTranslate);
+        //this.transform.Translate(xTranslate, 0, zTranslate);
+
+        rb.velocity = new Vector3(xTranslate, 0, zTranslate);
     }
 }
